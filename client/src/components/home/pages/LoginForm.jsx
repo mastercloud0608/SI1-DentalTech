@@ -1,0 +1,111 @@
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import avatarLogin from '../../../assets/avatar-login.webp';
+import { loginUser,setUserContext } from '../../../services/userApi';
+
+
+export const LoginForm = () => {
+
+    const navigate = useNavigate();
+
+    const [user, setUser] = useState({
+        username: '',
+        password: '',
+    })
+
+    const [error, setError] = useState('')
+
+
+    const handleChange = ({ target: { name, value } }) => {
+        setUser({ ...user, [name]: value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        try {
+            const { data } = await loginUser(user.username, user.password);
+            setUserContext(data);
+            navigate(`/${data.rol}`);
+        } catch (e) {
+            console.log('kkkkkk', e)
+            setError(e);
+        }
+    }
+
+    return (
+        <>
+            <section className="absolute w-full h-full h-100% scrollBehavior-unset">
+                <div className="container mx-auto px-4 h-full">
+                    <div className="flex content-center items-center justify-center h-full">
+                        <div className="w-full lg:w-8/12 px-4">
+                            <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
+                                <div
+                                    className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
+                                    <div className="w-full">
+                                        <div
+                                            className="block rounded-lg shadow-lg bg-custom-green">
+                                            <div className="g-0 lg:flex lg:flex-wrap">
+
+                                                <div className="bg-custom-grey hidden p-10 lg:flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none">
+                                                    <img src={avatarLogin} className="w-full h-min object-fill" />
+                                                </div>
+
+
+                                                <div className="lg:w-6/12 p-5">
+                                                    <div className="p-3 md:p-6 lg:p-6">
+                                                        <div className="flex p-5 justify-center items-center">
+                                                            <h2 className="text-2xl font-bold leading-9 tracking-tight text-gray-900">Iniciar sesión</h2>
+                                                        </div>
+                                                        {
+                                                            error &&
+                                                            <p className="mb-8 rounded-md flex h-10 items-center justify-center bg-custom-warning text-sm font-medium text-custom-blue">Usuario o contraseña incorrectos</p>
+                                                        }
+                                                        <form onSubmit={handleSubmit}>
+                                                            <div className="relative mb-6" data-te-input-wrapper-init>
+                                                                <input
+                                                                    type="text"
+                                                                    name='username'
+                                                                    placeholder='Nombre de usuario'
+                                                                    className="peer block w-full rounded border-0 bg-custom-blue px-3 py-[0.32rem] leading-[2.15] outline-none"
+                                                                    onChange={handleChange}
+                                                                />
+                                                            </div>
+
+                                                            <div className="relative mb-6" data-te-input-wrapper-init>
+                                                                <input
+                                                                    type='password'
+                                                                    name='password'
+                                                                    placeholder='Contraseña'
+                                                                    className="peer block w-full textrounded border-0 bg-custom-blue px-3 py-[0.32rem] leading-[2.15] outline-none"
+                                                                    onChange={handleChange}
+                                                                />
+                                                                <Link to='/restore/password' className='text-black text-sm mt-2 flex justify-end'>Olvido su contraseña? </Link>
+                                                            </div>
+
+                                                            <button
+                                                                type="submit"
+                                                                className="inline-block bg-custom-rose text-custom-blue w-full rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#3b71ca]"
+                                                            >
+                                                                Iniciar sesion
+                                                            </button>
+
+                                                            <p className='text-black mt-3 text-sm'>Aun no tiene cuenta?
+                                                                <Link to='/register' className='ml-2'>Registrese Aqui</Link>
+                                                            </p>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section >
+        </>
+    )
+}
