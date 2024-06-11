@@ -33,21 +33,21 @@ app.use(reports);
 socketManager.initSocket(server);
 
 const PORT =  process.env.PORT || 3000;
-const HOST = '192.168.137.95'; 
+// const HOST = '192.168.13.49'; 
 
-server.listen(PORT,HOST, async () => {
-    try {
-        const client = await pool.connect()
-        console.log('base de datos conectada')
-        client.release()
-    } catch (error) {
-        console.log('error en la conexion de la base de datos')
-        console.log(error)
-    }
+// server.listen(PORT,HOST, async () => {
+//     try {
+//         const client = await pool.connect()
+//         console.log('base de datos conectada')
+//         client.release()
+//     } catch (error) {
+//         console.log('error en la conexion de la base de datos')
+//         console.log(error)
+//     }
+//     console.log(`Servidor encendido en el puerto ${PORT}`);
+// });
+
+
+app.listen(PORT, () => {
     console.log(`Servidor encendido en el puerto ${PORT}`);
 });
-
-
-// app.listen(port, () => {
-//     console.log(`Servidor encendido en el puerto ${port}`);
-// });
