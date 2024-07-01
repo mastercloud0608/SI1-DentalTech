@@ -10,6 +10,8 @@ const patient = require('../server/routes/patient.routes');
 const odontologist = require('../server/routes/odontologist.routes')
 const diary = require('../server/routes/diary.routes')
 const reports = require('../server/routes/reports.routes');
+const odontograma = require('../server/routes/odontograma.routes'); // Nueva ruta del odontograma
+
 const pool = require('./db');
 
 const app = express();
@@ -27,6 +29,7 @@ app.use(patient);
 app.use(odontologist);
 app.use(diary);
 app.use(reports);
+app.use('/odontograma', odontograma); // Usar la nueva ruta del odontograma
 
 
 

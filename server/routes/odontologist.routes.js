@@ -18,3 +18,4 @@ router.get('/api/odontologist/specialisms', getListAllSpecialisms);
 
 
 module.exports = router;
+

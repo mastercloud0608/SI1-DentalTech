@@ -34,7 +34,7 @@ const getListAllTreatments = async (_, res) => {
   /**
  * @param req ( id ) 
  * @param res ( user ) 
- * Si el usuario existe o no,se envia un mensaje al clinete
+ * Si el usuario existe o no,se envia un mensaje al cliente
  */
 const getTreatmentId = async (req, res) => {
   const { id } = req.params;
